@@ -30,7 +30,9 @@
                         &nbsp;Date: {{$job->created_at->diffForHumans()}}
                     </td>
                     <td>
+                    <a href="{{route('jobs.show',[$job->id,$job->slug])}}">
                         <button class="btn btn-success btn-sm">Apply</button>
+                    </a>
                     </td>  
                 </tr>
               @endforeach

@@ -11,4 +11,9 @@ class JobController extends Controller
         $jobs = Job::all();
         return view('welcome',compact('jobs'));
     }
+
+    public function show($id,Job $job){
+       
+      return view('jobs.show',compact('job'));
+    }
 }

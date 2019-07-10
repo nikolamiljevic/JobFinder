@@ -11,8 +11,16 @@
 |
 */
 
-Route::get('/', 'JobController@index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//show all jobs
+Route::get('/', 'JobController@index');
+
+//show one job page
+Route::get('/jobs/{id}/{job}','JobController@show')->name('jobs.show');
+
+//company page
+Route::get('/company/{id}/{company}','CompanyController@index')->name('company.index');
