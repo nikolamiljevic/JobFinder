@@ -28,5 +28,14 @@ Route::get('/company/{id}/{company}','CompanyController@index')->name('company.i
 //user profile
 Route::get('user/profile','UserController@index');
 
-//update user profile
+//update user profile experience bio address
 Route::post('user/profile/create','UserController@store')->name('profile.create');
+
+//update coverletter 
+Route::post('user/coverletter','UserController@coverletter')->name('cover.letter');
+
+//update resume
+Route::post('user/resume','UserController@resume')->name('resume');
+
+//update avatar
+Route::post('user/avatar','UserController@avatar')->name('avatar');

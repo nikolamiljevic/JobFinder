@@ -3,11 +3,36 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-2">
-        <img src="{{asset('avatar/man.jpg')}}" width="100">
+        <div class="col-md-3">
+            @if(empty(Auth::user()->profile->avatar))
+        <img src="{{asset('avatar/man.jpg')}}" width="100" style="width: 100%;">
+        @else
+        <img src="{{asset('uploads/avatar')}}/{{Auth::user()->profile->avatar}}" width="100" style="width: 100%;">
+        @endif
+        <br>
+
+            <form action="{{route('avatar')}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="card">
+                    <div class="card-header">
+                        Update profile picture
+                    </div>
+                    <div class="card-body">
+                        <input type="file" class="form-control" name="avatar">
+                        <br>
+                        <button class="btn btn-success float-right" type="submit">Update</button>
+                        @if($errors->has('avatar'))
+                        <div class="error" style="color: red;">
+                            {{$errors->first('avatar')}}
+                        </div>
+                    @endif
+                    </div>
+                </div>
+            </form>
+
         </div>
  
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-header">
                     Update your profile
@@ -18,19 +43,45 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="">Address</label>
-                        <input type="text" class="form-control" name="address">
+                        <input type="text" class="form-control" name="address" value="{{Auth::user()->profile->address}}">
+                        
+                        @if($errors->has('address'))
+                            <div class="error" style="color: red;">
+                                {{$errors->first('address')}}
+                            </div>
+                        @endif
+
                     </div>
+                    <div class="form-group">
+                            <label for="">Phone number</label>
+                            <input type="text" class="form-control" name="phone_number" value="{{Auth::user()->profile->phone_number}}">
+                            @if($errors->has('phone_number'))
+                            <div class="error" style="color: red;">
+                                {{$errors->first('phone_number')}}
+                            </div>
+                        @endif
+                        </div>
                     <div class="form-group">
                         <label for="">Experience</label>
                         <textarea name="experience" class="form-control">
-
+                            {{Auth::user()->profile->experience}}
                         </textarea>
+                        @if($errors->has('experience'))
+                        <div class="error" style="color: red;">
+                            {{$errors->first('experience')}}
+                        </div>
+                    @endif
                     </div>
                         <div class="form-group">
                             <label for="">Bio</label>
                             <textarea name="bio" class="form-control">
-
+                                {{Auth::user()->profile->bio}}
                             </textarea>
+                            @if($errors->has('bio'))
+                            <div class="error" style="color: red;">
+                                {{$errors->first('bio')}}
+                            </div>
+                        @endif
                         </div>
 
                         <div class="form-group">
@@ -55,13 +106,36 @@
                     <p>Name: {{Auth::user()->name}}</p>
                     <p>Email: {{AUth::user()->email}}</p>
                     <p>Address: {{Auth::user()->profile->address}}</p>
+                    <p>Phone number: {{Auth::user()->profile->phone_number}}</p>
                     <p>Gender: {{Auth::user()->profile->gender}}</p>
                     <p>Experience: {{Auth::user()->profile->experience}}</p>
                     <p>Bio: {{Auth::user()->profile->bio}}</p>
-                    <p>Member on: {{Auth::user()->created_at}}</p>
+                    <p>Member on: {{date('F d Y',strtotime(Auth::user()->created_at))}}</p>
+
+                    @if(!empty(Auth::user()->profile->cover_letter))
+                    <p>
+                        <a href="{{Storage::url(Auth::user()->profile->cover_letter)}}">
+                        Cover letter
+                        </a>
+                    </p>
+                    @else
+                    <p>Please upload cover letter</p>
+                    @endif
+
+                    @if(!empty(Auth::user()->profile->resume))
+                    <p>
+                        <a href="{{Storage::url(Auth::user()->profile->resume)}}">
+                        Resume
+                        </a>
+                    </p>
+                    @else
+                    <p>Please upload resume</p>
+                    @endif
+
                     </div>
                 </div>
-
+            <form action="{{route('cover.letter')}}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="card">
                         <div class="card-header">
                             Update cover letter
@@ -71,7 +145,16 @@
                             <br>
                             <button class="btn btn-success float-right" type="submit">Update</button>
                         </div>
-
+                        @if($errors->has('cover_letter'))
+                        <div class="error" style="color: red;">
+                            {{$errors->first('cover_letter')}}
+                        </div>
+                    @endif
+                </div>
+            </form>
+                <form action="{{route('resume')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card">
                         <div class="card-header">
                             Update resume
                         </div>
@@ -80,8 +163,15 @@
                             <br>
                             <button class="btn btn-success float-right" type="submit">Update</button>
                         </div>
+                        @if($errors->has('resume'))
+                        <div class="error" style="color: red;">
+                            {{$errors->first('resume')}}
+                        </div>
+                    @endif
                     </div>
+                </form>
             </div>
+        </div>
     </div>
 </div>
 @endsection
