@@ -13,6 +13,7 @@ class UserController extends Controller
     }
 
     public function store(Request $request){
+        
         $this->validate($request,[
             'address'=>'required',
             'bio'=>'required|min:10',

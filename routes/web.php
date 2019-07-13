@@ -39,3 +39,19 @@ Route::post('user/resume','UserController@resume')->name('resume');
 
 //update avatar
 Route::post('user/avatar','UserController@avatar')->name('avatar');
+
+Route::view('employer/register','auth.employer-register')->name('employer.register');
+
+//employer register
+Route::post('employer/register','EmployerRegisterController@employerRegister')->name('emp.register');
+
+//company create
+Route::post('company/create','CompanyController@store')->name('company.store');
+Route::get('company/create','CompanyController@create')->name('company.view');
+
+
+//company coverphoto
+Route::post('company/coverphoto','CompanyController@coverPhoto')->name('cover.photo');
+
+//company logo
+Route::post('company/logo','CompanyController@companyLogo')->name('company.logo');
