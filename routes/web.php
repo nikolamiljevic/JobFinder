@@ -19,8 +19,23 @@ Route::get('/home', 'HomeController@index')->name('home');
 //show all jobs
 Route::get('/', 'JobController@index');
 
+
+Route::get('/jobs/create', 'JobController@create')->name('job.create');
+Route::post('/jobs/create', 'JobController@store')->name('job.store');
+
+//route for my jobs at company page
+Route::get('jobs/my-job','JobController@myjob')->name('my.job');
+
+//route for editing my jobs
+Route::get('jobs/{id}/edit','JobController@edit')->name('job.edit');
+//updating job
+Route::post('jobs/{id}/edit','JobController@update')->name('job.update');
+
 //show one job page
 Route::get('/jobs/{id}/{job}','JobController@show')->name('jobs.show');
+
+
+
 
 //company page
 Route::get('/company/{id}/{company}','CompanyController@index')->name('company.index');

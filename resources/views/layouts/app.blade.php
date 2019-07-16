@@ -10,7 +10,15 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script defer src="{{ asset('js/app.js') }}" ></script>
+    <script  src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script defer src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $( function() {
+          $( "#datepicker" ).datepicker();
+        } );
+    </script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +26,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://kit.fontawesome.com/1859f0bbc9.js"></script>
 
 </head>
@@ -54,6 +63,12 @@
                                 </li>
                             @endif
                         @else
+                                <li>
+                                <a href="{{route('job.create')}}">
+                                        <button class="btn btn-secondary">
+                                            Post a job
+                                        </button></a>
+                                </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if(Auth::user()->user_type='employer')
@@ -69,6 +84,7 @@
                                      <a class="dropdown-item" href="{{ route('company.view') }}">
                                          {{ __('Company') }}
                                      </a>
+                                    <a href="{{route('my.job')}}" class="dropdown-item">My jobs</a>
                             @else
                             <a class="dropdown-item" href="user/profile">
                                     {{ __('Company') }}
