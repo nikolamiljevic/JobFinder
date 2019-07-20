@@ -5,17 +5,17 @@
 <div class="col-md-12">
     
         <div class="company-profile">
-            @if(empty(Auth::user()->company->cover_photo))
+            @if(empty($company->cover_photo))
             <img src="{{asset('cover/tumblr.jpg')}}" style="width:100%; height:300px;">
             @else
-        <img src="{{asset('uploads/coverphoto')}}/{{Auth::user()->company->cover_photo}}" style="width:100%; height:300px;">
+        <img src="{{asset('uploads/coverphoto')}}/{{$company->cover_photo}}" style="width:100%; height:300px;">
             @endif
 
             <div class="company-desc">
-             @if(empty(Auth::user()->company->logo))
+             @if(empty($company->logo))
                 <img src="{{asset('avatar/man.jpg')}}" width="100">
             @else
-            <img src="{{asset('uploads/logo')}}/{{Auth::user()->company->logo}}">
+            <img src="{{asset('uploads/logo')}}/{{$company->logo}}">
             @endif
 
                 <p>{{$company->description}}</p>

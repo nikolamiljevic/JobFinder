@@ -26,6 +26,9 @@ Route::post('/jobs/create', 'JobController@store')->name('job.store');
 //route for my jobs at company page
 Route::get('jobs/my-job','JobController@myjob')->name('my.job');
 
+//browse all jobs
+Route::get('jobs/alljobs','JobController@allJobs')->name('alljobs');
+
 //route for editing my jobs
 Route::get('jobs/{id}/edit','JobController@edit')->name('job.edit');
 //updating job
@@ -37,8 +40,7 @@ Route::get('/jobs/{id}/{job}','JobController@show')->name('jobs.show');
 
 
 
-//company page
-Route::get('/company/{id}/{company}','CompanyController@index')->name('company.index');
+
 
 //user profile
 Route::get('user/profile','UserController@index');
@@ -55,10 +57,24 @@ Route::post('user/resume','UserController@resume')->name('resume');
 //update avatar
 Route::post('user/avatar','UserController@avatar')->name('avatar');
 
+//view 
 Route::view('employer/register','auth.employer-register')->name('employer.register');
 
-//employer register
+//employer register 
 Route::post('employer/register','EmployerRegisterController@employerRegister')->name('emp.register');
+//apply for job
+Route::post('/applications/{id}','JobController@apply')->name('apply');
+
+
+//view applicants for certain job
+Route::get('jobs/applications','JobController@applicant')->name('applicant');
+
+
+
+
+
+//company page
+Route::get('/company/{id}/{company}','CompanyController@index')->name('company.index');
 
 //company create
 Route::post('company/create','CompanyController@store')->name('company.store');

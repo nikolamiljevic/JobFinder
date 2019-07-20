@@ -3,8 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row">
+           
         <div class="col-md-8">
             <div class="card">
+                    @if(Session::has('message'))
+                    <div class="alert alert-success">
+                        {{Session::get('message')}}
+                    </div>
+                    @endif
                 <div class="card-header">{{$job->title}}</div>
 
                 <div class="card-body">
@@ -28,13 +34,20 @@
                 <p><b>Address:</b> {{$job->address}}</p>
                 <p><b>Employment type: </b>{{$job->type}}</p>
                 <p><b>Position:</b>  {{$job->position}}</p>
-                <p><b>Date:</b> {{$job->created_at->diffForHumans()}}</p>
+                <p><b>Posted:</b> {{$job->created_at->diffForHumans()}}</p>
+                <p> <b>Deadline to apply: </b>{{date('F d,Y',strtotime($job->last_date))}}</p>
                 </div>
             </div>
             <br>
             @if(Auth::check() && Auth::user()->user_type = 'seeker')
-            <button class="btn btn-success" style="width: 100%;">Apply</button>
+            @if(!$job->checkApplication())
+        <form action="{{route('apply',[$job->id])}}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-success" style="width: 100%;">Apply</button>
+        </form>
             @endif
+            @endif
+
         </div>
 
     

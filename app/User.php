@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Profile;
 use App\Company;
+use App\Job;
 
 class User extends Authenticatable
 {
@@ -46,4 +47,7 @@ class User extends Authenticatable
     public function company(){
         return $this->hasOne(Company::class);
     }
+
+    
+    
 }
