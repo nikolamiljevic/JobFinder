@@ -12,7 +12,8 @@
 */
 
 
-Auth::routes();
+//Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -57,21 +58,29 @@ Route::post('user/resume','UserController@resume')->name('resume');
 //update avatar
 Route::post('user/avatar','UserController@avatar')->name('avatar');
 
+
+
 //view 
 Route::view('employer/register','auth.employer-register')->name('employer.register');
-
 //employer register 
 Route::post('employer/register','EmployerRegisterController@employerRegister')->name('emp.register');
+
+
+
+
+
+
 //apply for job
 Route::post('/applications/{id}','JobController@apply')->name('apply');
-
-
 //view applicants for certain job
 Route::get('jobs/applications','JobController@applicant')->name('applicant');
 
+//save and unsave jobs
+Route::post('/save/{id}','FavouriteController@saveJob');
+Route::post('/unsave/{id}','FavouriteController@unSaveJob');
 
-
-
+//search jobs 
+Route::get('/jobs/search','JobController@searchJobs');
 
 //company page
 Route::get('/company/{id}/{company}','CompanyController@index')->name('company.index');

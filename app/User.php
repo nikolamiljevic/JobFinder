@@ -9,7 +9,7 @@ use App\Profile;
 use App\Company;
 use App\Job;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -48,6 +48,8 @@ class User extends Authenticatable
         return $this->hasOne(Company::class);
     }
 
-    
+    public function favourites(){
+        return $this->belongsToMany(Job::class,'favourites','user_id','job_id')->withTimeStamps();
+    }
     
 }

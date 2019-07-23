@@ -13,7 +13,7 @@ class JobController extends Controller
 {
 
   public function __construct(){
-    $this->middleware('employer',['except'=>array('index','show','apply','applicant','allJobs')]);
+    $this->middleware(['employer','verified'],['except'=>array('index','show','apply','applicant','allJobs','searchJobs')]);
   }
 
     public function index(){
@@ -111,6 +111,14 @@ class JobController extends Controller
       $applicants = Job::has('users')->where('user_id',auth()->user()->id)->get();
       return view('jobs.applicants',compact('applicants'));
      // return $applicants;
+    }
+
+    public function searchJobs(Request $request){
+      $keyword = $request->get('keyword');
+      $users = Job::where('title','like','%'.$keyword.'%')
+      ->orWhere('position','like','%'.$keyword.'%')
+      ->limit(5)->get();
+      return response()->json($users);
     }
     
 }
